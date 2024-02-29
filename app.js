@@ -56,16 +56,16 @@ app.get("/api/menu", async (req, res) => {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
           "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
         },
       }
     );
 
     const menu = await response.json();
 
-    const restaurantInfo = menu?.data?.cards?.[2]?.card?.card?.info;
+    const restaurantInfo = menu?.data?.cards?.[0]?.card?.card?.info;
     const categories =
-      menu?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      menu?.data?.cards?.[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
         (card) =>
           card?.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
@@ -77,7 +77,7 @@ app.get("/api/menu", async (req, res) => {
       data: {
         menu: {
           restaurantInfo,
-          categoriesInfo: { results: categories.length, categories },
+          categoriesInfo: { results: categories?.length, categories },
         },
       },
     });
